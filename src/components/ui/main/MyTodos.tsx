@@ -3,6 +3,7 @@ import { Card, CardContent } from "../card";
 import { Label } from "../label";
 import { Input } from "../input";
 import { Button } from "../button";
+import EmptyState from "./EmptyState";
 
 export default function MyTodos() {
   return (
@@ -18,7 +19,7 @@ export default function MyTodos() {
               My Todos
             </h1>
           </div>
-          <p className="text-lg text-center">
+          <p className="text-lg text-center text-heading">
             Organize your tasks and boost your productivity
           </p>
         </div>
@@ -31,12 +32,13 @@ export default function MyTodos() {
               </Label>
               <div className="flex gap-2">
                 <Input
+                  className="h-10"
                   id="todo"
                   placeholder="What needs to be done?"
                   required
                 />
-                <Button type="submit" className="whitespace-nowrap">
-                  <Plus className="size-5 md:mr-2" />
+                <Button type="submit" className="whitespace-nowrap" size="lg">
+                  <Plus className="size-5" />
                   <span className="sr-only md:not-sr-only">Add Todo</span>
                 </Button>
               </div>
@@ -46,7 +48,9 @@ export default function MyTodos() {
       </section>
 
       {/* Todos section */}
-      <section></section>
+      <section className="mt-6">
+        <EmptyState />
+      </section>
     </div>
   );
 }
