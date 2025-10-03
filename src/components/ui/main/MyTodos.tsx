@@ -1,23 +1,48 @@
-import { SquareCheckBig } from "lucide-react";
+import { Plus, SquareCheckBig } from "lucide-react";
+import { Card, CardContent } from "../card";
+import { Label } from "../label";
+import { Input } from "../input";
+import { Button } from "../button";
 
 export default function MyTodos() {
   return (
     <div>
       {/* Hero section */}
       <section>
-        <div>
-          <div className="flex items-center gap-2 justify-center mb-2">
+        <div className="mb-8">
+          <div className="flex items-center gap-2 justify-center mb-3">
             <div className="bg-gradient-to-br from-primary to-fuchsia-500 inline-block p-3 rounded-xl">
-              <SquareCheckBig className="text-background size-8 md:size-10" />
+              <SquareCheckBig className="text-background size-6 md:size-8" />
             </div>
-            <h1 className="text-4xl md:text-5xl text-primary font-bold">
+            <h1 className="text-3xl md:text-4xl text-primary font-bold">
               My Todos
             </h1>
           </div>
-          <p className="text-xl text-center">
+          <p className="text-lg text-center">
             Organize your tasks and boost your productivity
           </p>
         </div>
+
+        <Card>
+          <CardContent>
+            <form action="">
+              <Label className="sr-only" htmlFor="todo">
+                Add a new todo
+              </Label>
+              <div className="flex gap-2">
+                <Input
+                  id="todo"
+                  placeholder="What needs to be done?"
+                  required
+                />
+                <Button type="submit" className="whitespace-nowrap">
+                  <Plus className="size-5 md:mr-2" />
+                  <span className="sr-only md:not-sr-only">Add Todo</span>
+                </Button>
+              </div>
+            </form>
+          </CardContent>
+        </Card>
       </section>
 
       {/* Todos section */}
