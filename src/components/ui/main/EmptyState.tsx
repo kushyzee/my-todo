@@ -12,9 +12,9 @@ export default function EmptyState() {
     <Empty className="border border-border bg-card py-16">
       <EmptyHeader>
         <EmptyMedia variant="icon">
-          <CheckCircle className="size-12" />
+          <CheckCircle className="size-14" />
         </EmptyMedia>
-        <EmptyTitle className="text-primary-heading text-xl font-semibold">
+        <EmptyTitle className="text-primary-heading text-xl md:text-2xl font-semibold">
           No todos yet
         </EmptyTitle>
         <EmptyDescription className="text-base">

@@ -4,6 +4,7 @@ import { Label } from "../label";
 import { Input } from "../input";
 import { Button } from "../button";
 import EmptyState from "./EmptyState";
+import TodosTabs from "./TodosTabs";
 
 export default function MyTodos() {
   return (
@@ -49,7 +50,8 @@ export default function MyTodos() {
 
       {/* Todos section */}
       <section className="mt-6">
-        <EmptyState />
+        {/* <EmptyState /> */}
+        <TodosTabs />
       </section>
     </div>
   );
