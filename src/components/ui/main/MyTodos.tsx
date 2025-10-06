@@ -5,8 +5,37 @@ import { Input } from "../input";
 import { Button } from "../button";
 import EmptyState from "./EmptyState";
 import TodosTabs from "./TodosTabs";
+import { useTodo } from "@/hooks/customHook";
+import { isArrayEmpty } from "@/utility/functions";
+import { useState } from "react";
+import type { Todos } from "@/types/myTypes";
 
 export default function MyTodos() {
+  const { todos, setTodos } = useTodo();
+  const [formError, setFormError] = useState("");
+
+  const isInValidField = (field: string) => {
+    return field.trim() === "";
+  };
+
+  const handleSubmit = (formData: FormData) => {
+    const inputValue = formData.get("todo") as string;
+
+    if (isInValidField(inputValue)) {
+      setFormError("Todo cannot be empty");
+      return;
+    }
+
+    const newTodo: Todos = {
+      id: Date.now(),
+      text: inputValue,
+      isCompleted: false,
+    };
+
+    setTodos([newTodo, ...todos]);
+    setFormError("");
+  };
+
   return (
     <div>
       {/* Hero section */}
@@ -27,7 +56,7 @@ export default function MyTodos() {
 
         <Card>
           <CardContent>
-            <form action="">
+            <form action={handleSubmit}>
               <Label className="sr-only" htmlFor="todo">
                 Add a new todo
               </Label>
@@ -35,23 +64,32 @@ export default function MyTodos() {
                 <Input
                   className="h-10"
                   id="todo"
+                  name="todo"
+                  onChange={() => {
+                    setFormError("");
+                  }}
                   placeholder="What needs to be done?"
-                  required
                 />
-                <Button type="submit" className="whitespace-nowrap" size="lg">
+                <Button
+                  type="submit"
+                  className="whitespace-nowrap cursor-pointer"
+                  size="lg"
+                >
                   <Plus className="size-5" />
                   <span className="sr-only md:not-sr-only">Add Todo</span>
                 </Button>
               </div>
             </form>
+            {formError && (
+              <p className="text-destructive text-sm mt-1">{formError}</p>
+            )}
           </CardContent>
         </Card>
       </section>
 
       {/* Todos section */}
       <section className="mt-6">
-        {/* <EmptyState /> */}
-        <TodosTabs />
+        {isArrayEmpty(todos) ? <EmptyState /> : <TodosTabs />}
       </section>
     </div>
   );

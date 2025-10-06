@@ -3,13 +3,28 @@ import { Card, CardContent } from "../card";
 import { Checkbox } from "../checkbox";
 import { Button } from "../button";
 import { Edit, Trash2 } from "lucide-react";
+import { useTodo } from "@/hooks/customHook";
 
 interface TodoItemProps {
   todoText: string;
+  todoId: number;
 }
 
-export default function TodoItem({ todoText }: TodoItemProps) {
+export default function TodoItem({ todoText, todoId }: TodoItemProps) {
+  const { todos, setTodos } = useTodo();
+
   const [isChecked, setIsChecked] = useState(false);
+
+  const handleCheckedChange = (checked: boolean) => {
+    setIsChecked(checked);
+
+    todos.map((todo) => {
+      if (todo.id === todoId) {
+        todo.isCompleted = checked;
+      }
+    });
+  };
+  console.log(todos);
 
   return (
     <Card className="py-4 bg-secondary ">
@@ -19,7 +34,7 @@ export default function TodoItem({ todoText }: TodoItemProps) {
             className="cursor-pointer"
             checked={isChecked}
             onCheckedChange={(checked: boolean) => {
-              setIsChecked(checked);
+              handleCheckedChange(checked);
             }}
           />
           <p>{todoText}</p>

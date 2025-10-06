@@ -1,11 +1,15 @@
+import { useTodo } from "@/hooks/customHook";
 import TabContentWrapper from "./TabContentWrapper";
 import TodoItem from "./TodoItem";
 
 export default function AllTodos() {
+  const { todos } = useTodo();
+
   return (
     <TabContentWrapper>
-      <TodoItem todoText="Learn React" />
-      <TodoItem todoText="Go to work" />
+      {todos.map((todo) => (
+        <TodoItem key={todo.id} todoText={todo.text} todoId={todo.id} />
+      ))}
     </TabContentWrapper>
   );
 }
