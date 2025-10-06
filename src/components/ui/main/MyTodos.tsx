@@ -4,10 +4,10 @@ import { Label } from "../label";
 import { Input } from "../input";
 import { Button } from "../button";
 import EmptyState from "./EmptyState";
-import TodosTabs from "./TodosTabs";
 import { useFormError, useTodo } from "@/hooks/customHook";
 import { isArrayEmpty, isInValidField } from "@/utility/functions";
 import type { Todos } from "@/types/myTypes";
+import TasksTabs from "./TasksTabs";
 
 export default function MyTodos() {
   const { todos, dispatch } = useTodo();
@@ -86,7 +86,7 @@ export default function MyTodos() {
 
       {/* Todos section */}
       <section className="mt-6">
-        {isArrayEmpty(todos) ? <EmptyState /> : <TodosTabs />}
+        {isArrayEmpty(todos) ? <EmptyState /> : <TasksTabs />}
       </section>
     </div>
   );

@@ -2,7 +2,7 @@ import { useTodo } from "@/hooks/customHook";
 import TabContentWrapper from "./TabContentWrapper";
 import TodoItem from "./TodoItem";
 
-export default function AllTodos() {
+export default function AllTasks() {
   const { todos } = useTodo();
 
   return (
