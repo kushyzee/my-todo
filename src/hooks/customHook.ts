@@ -1,5 +1,5 @@
 import { TodoContext } from "@/context/TodoContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 export const useTodo = () => {
   const context = useContext(TodoContext);
@@ -9,4 +9,18 @@ export const useTodo = () => {
   }
 
   return context;
+};
+
+export const useFormError = () => {
+  const [formError, setFormError] = useState("");
+
+  const updateFormError = (message: string) => {
+    setFormError(message);
+  };
+
+  const resetFormError = () => {
+    setFormError("");
+  };
+
+  return { formError, updateFormError, resetFormError };
 };

@@ -5,24 +5,20 @@ import { Input } from "../input";
 import { Button } from "../button";
 import EmptyState from "./EmptyState";
 import TodosTabs from "./TodosTabs";
-import { useTodo } from "@/hooks/customHook";
-import { isArrayEmpty } from "@/utility/functions";
-import { useState } from "react";
+import { useFormError, useTodo } from "@/hooks/customHook";
+import { isArrayEmpty, isInValidField } from "@/utility/functions";
 import type { Todos } from "@/types/myTypes";
 
 export default function MyTodos() {
-  const { todos, setTodos } = useTodo();
-  const [formError, setFormError] = useState("");
+  const { todos, dispatch } = useTodo();
 
-  const isInValidField = (field: string) => {
-    return field.trim() === "";
-  };
+  const { formError, resetFormError, updateFormError } = useFormError();
 
-  const handleSubmit = (formData: FormData) => {
+  const handleFormSubmit = (formData: FormData) => {
     const inputValue = formData.get("todo") as string;
 
     if (isInValidField(inputValue)) {
-      setFormError("Todo cannot be empty");
+      updateFormError("Todo cannot be empty");
       return;
     }
 
@@ -32,8 +28,9 @@ export default function MyTodos() {
       isCompleted: false,
     };
 
-    setTodos([newTodo, ...todos]);
-    setFormError("");
+    dispatch({ type: "ADD_TODO", payload: newTodo });
+
+    resetFormError();
   };
 
   return (
@@ -56,7 +53,7 @@ export default function MyTodos() {
 
         <Card>
           <CardContent>
-            <form action={handleSubmit}>
+            <form action={handleFormSubmit}>
               <Label className="sr-only" htmlFor="todo">
                 Add a new todo
               </Label>
@@ -66,7 +63,7 @@ export default function MyTodos() {
                   id="todo"
                   name="todo"
                   onChange={() => {
-                    setFormError("");
+                    resetFormError();
                   }}
                   placeholder="What needs to be done?"
                 />

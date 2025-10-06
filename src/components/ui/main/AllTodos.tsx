@@ -8,7 +8,12 @@ export default function AllTodos() {
   return (
     <TabContentWrapper>
       {todos.map((todo) => (
-        <TodoItem key={todo.id} todoText={todo.text} todoId={todo.id} />
+        <TodoItem
+          key={todo.id}
+          todoText={todo.text}
+          todoId={todo.id}
+          todoCompleted={todo.isCompleted}
+        />
       ))}
     </TabContentWrapper>
   );

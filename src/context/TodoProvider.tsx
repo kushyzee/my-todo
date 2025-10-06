@@ -1,9 +1,10 @@
 import type { Todos } from "@/types/myTypes";
-import { useState, type ReactNode } from "react";
+import { useReducer, type ReactNode } from "react";
 import { TodoContext } from "./TodoContext";
+import { cartReducer } from "./cartReducer";
 
 export default function TodoProvider({ children }: { children: ReactNode }) {
-  const [todos, setTodos] = useState<Todos[]>([]);
+  const [todos, dispatch] = useReducer(cartReducer, []);
 
-  return <TodoContext value={{ todos, setTodos }}>{children}</TodoContext>;
+  return <TodoContext value={{ todos, dispatch }}>{children}</TodoContext>;
 }
