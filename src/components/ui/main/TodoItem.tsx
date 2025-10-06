@@ -16,12 +16,15 @@ export default function TodoItem({
   todoId,
   todoCompleted,
 }: TodoItemProps) {
-  const { todos, dispatch } = useTodo();
+  const { dispatch } = useTodo();
 
   const handleCheckedChange = (checked: boolean) => {
     dispatch({ type: "COMPLETE_TODO", payload: { id: todoId, checked } });
   };
-  console.log(todos);
+
+  const handleDelete = () => {
+    dispatch({ type: "DELETE_TODO", payload: { id: todoId } });
+  };
 
   return (
     <Card className="py-4 bg-secondary group hover:border-primary/40 transition-all duration-200">
@@ -54,9 +57,10 @@ export default function TodoItem({
             <Edit />
           </Button>
           <Button
-            className={todoCompleted ? "opacity-50" : ""}
+            className={`cursor-pointer ${todoCompleted ? "opacity-50" : ""}`}
             variant="ghost"
             size="icon"
+            onClick={handleDelete}
           >
             <span className="sr-only">Delete</span>
             <Trash2 className="text-destructive" />

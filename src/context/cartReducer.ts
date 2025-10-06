@@ -16,6 +16,10 @@ export const cartReducer = (todos: Todos[], action: Action) => {
       );
     }
 
+    case "DELETE_TODO": {
+      return todos.filter((todo) => todo.id !== payload.id);
+    }
+
     default:
       return todos;
   }
