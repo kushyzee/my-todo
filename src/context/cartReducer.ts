@@ -20,6 +20,10 @@ export const cartReducer = (todos: Todos[], action: Action) => {
       return todos.filter((todo) => todo.id !== payload.id);
     }
 
+    case "CLEAR_COMPLETED": {
+      return todos.filter((todo) => !todo.isCompleted);
+    }
+
     default:
       return todos;
   }
