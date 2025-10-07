@@ -38,7 +38,7 @@ export default function UpdatedTask({
       className="px-4 flex justify-between items-center"
       action={handleSubmit}
     >
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 w-full">
         <Checkbox
           className="cursor-pointer data-[state=checked]:bg-primary/50"
           checked={todoCompleted}
@@ -47,9 +47,13 @@ export default function UpdatedTask({
         <Label htmlFor={todoId.toString()} className="sr-only">
           Enter new task
         </Label>
-        <Input defaultValue={todoText} name="new-todo" />
+        <Input
+          defaultValue={todoText}
+          name="new-todo"
+          placeholder="Enter new task"
+        />
       </div>
-      <div className="flex">
+      <div className="flex ml-2">
         <Button
           className={`cursor-pointer text-primary ${
             todoCompleted ? "opacity-50" : ""
