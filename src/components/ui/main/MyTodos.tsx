@@ -4,34 +4,14 @@ import { Label } from "../label";
 import { Input } from "../input";
 import { Button } from "../button";
 import EmptyState from "./EmptyState";
-import { useFormError, useTodo } from "@/hooks/customHook";
-import { isArrayEmpty, isInValidField } from "@/utility/functions";
-import type { Todos } from "@/types/myTypes";
+import { useForm, useFormError, useTodo } from "@/hooks/customHook";
+import { isArrayEmpty } from "@/utility/functions";
 import TasksTabs from "./TasksTabs";
 
 export default function MyTodos() {
   const { todos, dispatch } = useTodo();
-
   const { formError, resetFormError, updateFormError } = useFormError();
-
-  const handleFormSubmit = (formData: FormData) => {
-    const inputValue = formData.get("todo") as string;
-
-    if (isInValidField(inputValue)) {
-      updateFormError("Todo cannot be empty");
-      return;
-    }
-
-    const newTodo: Todos = {
-      id: Date.now(),
-      text: inputValue,
-      isCompleted: false,
-    };
-
-    dispatch({ type: "ADD_TODO", payload: newTodo });
-
-    resetFormError();
-  };
+  const handleFormSubmit = useForm(updateFormError, resetFormError, dispatch);
 
   return (
     <div>
@@ -53,7 +33,11 @@ export default function MyTodos() {
 
         <Card>
           <CardContent>
-            <form action={handleFormSubmit}>
+            <form
+              action={(formData) =>
+                handleFormSubmit(formData, "todo", "ADD_TODO")
+              }
+            >
               <Label className="sr-only" htmlFor="todo">
                 Add a new todo
               </Label>

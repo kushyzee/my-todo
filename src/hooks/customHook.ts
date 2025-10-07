@@ -1,5 +1,7 @@
 import { TodoContext } from "@/context/TodoContext";
-import { useContext, useState } from "react";
+import type { Action, Todos } from "@/types/myTypes";
+import { isInValidField } from "@/utility/functions";
+import { useContext, useState, type Dispatch } from "react";
 
 export const useTodo = () => {
   const context = useContext(TodoContext);
@@ -23,4 +25,37 @@ export const useFormError = () => {
   };
 
   return { formError, updateFormError, resetFormError };
+};
+
+export const useForm = (
+  updateFormError: (message: string) => void,
+  resetFormError: () => void,
+  dispatch: Dispatch<Action>
+) => {
+  const handleFormSubmit = (
+    formData: FormData,
+    name: "todo" | "new-todo",
+    dispatchType: "ADD_TODO" | "UPDATE_TODO",
+    isCompleted: boolean = false,
+    todoId: number = Date.now()
+  ) => {
+    const inputValue = formData.get(name) as string;
+
+    if (isInValidField(inputValue)) {
+      updateFormError("Todo cannot be empty");
+      return;
+    }
+
+    const newTodo: Todos = {
+      id: todoId,
+      text: inputValue,
+      isCompleted,
+    };
+
+    dispatch({ type: dispatchType, payload: newTodo });
+
+    resetFormError();
+  };
+
+  return handleFormSubmit;
 };

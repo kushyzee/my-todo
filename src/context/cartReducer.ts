@@ -16,6 +16,14 @@ export const cartReducer = (todos: Todos[], action: Action) => {
       );
     }
 
+    case "UPDATE_TODO": {
+      console.log(payload);
+
+      return todos.map((todo) =>
+        todo.id === payload.id ? { ...payload } : todo
+      );
+    }
+
     case "DELETE_TODO": {
       return todos.filter((todo) => todo.id !== payload.id);
     }
