@@ -6,6 +6,7 @@ A modern, responsive todo application built with React, TypeScript, and Tailwind
 
 - ✅ **Create todos** - Add new tasks with form validation
 - ✏️ **Mark as complete** - Toggle completion status with checkboxes
+- ✏️ **Update todos** - Update tasks with form validation
 - 🗑️ **Delete todos** - Remove individual tasks
 - 🔍 **Filter tasks** - View all, active, or completed tasks
 - 🧹 **Clear completed** - Bulk delete all completed tasks
